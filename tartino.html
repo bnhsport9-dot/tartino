@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#0B1F3A">
+<title>كتالوج المنتجات — Siplait & Tartino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B1F3A; --navy2:#102749; --gold:#D4AF37; --gold2:#E9CC73;
+  --gold3:#F6E9C2; --cream:#F8F5EF; --cream2:#EDE8DC;
+  --white:#FFFFFF; --text:#1A1A2E; --soft:#6B7280;
+  --border:rgba(212,175,55,.22);
+  --r:14px; --pill:999px;
+  --sh:0 2px 16px -4px rgba(11,31,58,.10);
+  --sh-gold:0 2px 12px rgba(212,175,55,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Cairo','Inter',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+
+/* ── SPLASH ── */
+.splash{position:fixed;inset:0;background:var(--navy);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .5s,visibility .5s;}
+.splash.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.splash__icon{width:56px;height:56px;color:var(--gold);animation:rot 1.6s ease-in-out infinite;}
+@keyframes rot{0%{transform:rotate(0)scale(1);}50%{transform:rotate(180deg)scale(1.12);}100%{transform:rotate(360deg)scale(1);}}
+.splash__txt{font-size:14px;font-weight:700;color:var(--gold2);letter-spacing:.1em;}
+
+/* ── HEADER ── */
+.hd{position:sticky;top:0;z-index:80;background:var(--navy);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;box-shadow:0 2px 20px rgba(11,31,58,.4);}
+.hd__left{display:flex;align-items:center;gap:9px;}
+.hd__diamond{width:26px;height:26px;color:var(--gold);}
+.hd__name{font-size:13.5px;font-weight:800;color:#fff;line-height:1.1;}
+.hd__name small{display:block;font-size:9.5px;font-weight:400;color:var(--gold2);letter-spacing:.07em;}
+.hd__pill{display:flex;align-items:center;gap:5px;padding:5px 11px;border:.7px solid var(--gold);border-radius:var(--pill);background:rgba(212,175,55,.09);font-size:10px;font-weight:700;color:var(--gold2);white-space:nowrap;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(158deg,var(--navy) 0%,var(--navy2) 52%,#163461 100%);padding:30px 18px 38px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 90% 55% at 50% -5%,rgba(212,175,55,.18),transparent 62%),repeating-linear-gradient(135deg,rgba(255,255,255,.014) 0,rgba(255,255,255,.014) 1px,transparent 1px,transparent 8px);pointer-events:none;}
+.hero__ey{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);margin-bottom:12px;}
+.hero__ey::before,.hero__ey::after{content:"";width:20px;height:.7px;background:var(--gold);opacity:.6;}
+.hero__h1{font-size:25px;font-weight:900;color:#fff;line-height:1.22;margin-bottom:4px;}
+.hero__fr{font-size:12px;font-weight:500;color:var(--gold2);letter-spacing:.07em;margin-bottom:20px;opacity:.8;}
+.hero__logos{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;}
+.hero__logo-link{display:flex;align-items:center;padding:8px 16px;border-radius:var(--pill);border:.7px solid rgba(212,175,55,.4);background:rgba(255,255,255,.07);backdrop-filter:blur(4px);transition:background .2s,border-color .2s;text-decoration:none;}
+.hero__logo-link:hover,.hero__logo-link.active{background:rgba(212,175,55,.15);border-color:var(--gold);}
+.hero__logo-link img{height:28px;object-fit:contain;filter:brightness(0) invert(1);opacity:.9;}
+.hero__scroll{margin-top:18px;font-size:10.5px;color:rgba(255,255,255,.35);letter-spacing:.06em;animation:bonce 2.4s ease-in-out infinite;}
+@keyframes bonce{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
+
+/* ── SECTION HEAD ── */
+.sec{padding:28px 0 6px;}
+.sec__head{display:flex;align-items:center;gap:12px;padding:0 16px;margin-bottom:16px;}
+.sec__logo{height:36px;object-fit:contain;}
+.sec__titles{flex:1;}
+.sec__name{font-size:18px;font-weight:800;color:var(--navy);line-height:1.1;}
+.sec__sub{font-size:10.5px;font-weight:500;color:var(--soft);}
+.sec__count{display:inline-flex;align-items:center;padding:3px 10px;background:var(--navy);color:var(--gold2);border-radius:var(--pill);font-size:10.5px;font-weight:700;white-space:nowrap;}
+
+/* ── SCROLL ROW ── */
+.scroll-row{display:flex;gap:12px;padding:4px 16px 20px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.scroll-row::-webkit-scrollbar{display:none;}
+
+/* ── PRODUCT CARD ── */
+.pc{flex:none;width:140px;border-radius:var(--r);background:var(--white);box-shadow:var(--sh);overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;border:.7px solid rgba(212,175,55,.14);position:relative;transition:transform .18s,box-shadow .18s;}
+.pc:active{transform:scale(.97);}
+.pc:hover{box-shadow:0 6px 24px -6px rgba(11,31,58,.18);}
+
+/* shimmer border on hover */
+.pc::after{content:"";position:absolute;inset:0;border-radius:var(--r);border:1.5px solid var(--gold);opacity:0;transition:opacity .22s;pointer-events:none;}
+.pc:hover::after{opacity:.5;}
+
+.pc__img{background:#fff;height:110px;display:flex;align-items:center;justify-content:center;padding:8px;position:relative;overflow:hidden;}
+.pc__img img{max-width:100%;max-height:94px;object-fit:contain;display:block;transition:transform .3s;}
+.pc:hover .pc__img img{transform:scale(1.06);}
+
+/* subtle gradient at bottom of image */
+.pc__img::after{content:"";position:absolute;bottom:0;left:0;right:0;height:22px;background:linear-gradient(to top,rgba(248,245,239,.9),transparent);pointer-events:none;}
+
+.pc__badge{position:absolute;top:7px;right:7px;padding:2px 7px;border-radius:var(--pill);font-size:8.5px;font-weight:800;letter-spacing:.03em;z-index:2;}
+.badge--gold{background:var(--gold);color:var(--navy);}
+.badge--red{background:#E53E3E;color:#fff;}
+.badge--blue{background:#2563EB;color:#fff;}
+
+.pc__body{padding:9px 9px 11px;flex:1;display:flex;flex-direction:column;gap:4px;}
+.pc__ar{font-family:'Cairo',sans-serif;font-size:12.5px;font-weight:800;color:var(--navy);line-height:1.2;direction:rtl;}
+.pc__fr{font-size:9.5px;font-weight:500;color:var(--soft);direction:ltr;text-align:left;line-height:1.3;}
+.pc__tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:auto;padding-top:4px;}
+.tag{padding:2px 6px;border-radius:var(--pill);background:var(--cream2);color:var(--navy);font-size:8.5px;font-weight:600;border:.5px solid var(--border);}
+
+/* ── DIVIDER ── */
+.div{height:.5px;background:linear-gradient(90deg,transparent,var(--border) 25%,var(--border) 75%,transparent);margin:4px 16px 0;}
+
+/* ── CTA ── */
+.cta{margin:22px 16px;background:linear-gradient(138deg,var(--navy),var(--navy2));border-radius:18px;padding:22px 18px;text-align:center;position:relative;overflow:hidden;box-shadow:0 8px 32px -10px rgba(11,31,58,.4);}
+.cta::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(212,175,55,.18),transparent 60%);pointer-events:none;}
+.cta__ar{font-size:17px;font-weight:800;color:#fff;margin-bottom:2px;}
+.cta__fr{font-size:10.5px;color:var(--gold2);font-weight:500;letter-spacing:.05em;margin-bottom:14px;}
+.cta__btns{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:var(--pill);font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:transform .15s,box-shadow .15s;border:none;cursor:pointer;}
+.btn:active{transform:scale(.95);}
+.btn--g{background:var(--gold);color:var(--navy);box-shadow:var(--sh-gold);}
+.btn--w{background:#25D366;color:#fff;box-shadow:0 2px 12px rgba(37,211,102,.28);}
+.btn svg{width:16px;height:16px;flex:none;}
+
+/* ── FOOTER ── */
+.ft{background:var(--navy);padding:20px 16px;text-align:center;}
+.ft__logo-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px;}
+.ft__logo-row svg{width:20px;height:20px;color:var(--gold);}
+.ft__brand{font-size:12.5px;font-weight:700;color:#fff;}
+.ft__tag{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.05em;}
+.ft__pills{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;margin-top:12px;}
+.ft__p{display:flex;align-items:center;gap:5px;padding:3px 10px;border-radius:var(--pill);border:.6px solid rgba(212,175,55,.28);font-size:9.5px;font-weight:600;color:rgba(255,255,255,.6);}
+.ft__dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex:none;}
+
+/* ── SCROLL-TOP ── */
+.st{position:fixed;bottom:18px;left:16px;width:38px;height:38px;background:var(--navy);border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .2s,transform .2s;z-index:60;}
+.st.on{opacity:1;transform:translateY(0);}
+.st svg{width:17px;height:17px;}
+
+/* ── RESPONSIVE ── */
+@media(min-width:540px){.pc{width:158px;}.pc__img{height:126px;}}
+@media(min-width:900px){
+  .scroll-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));overflow-x:visible;padding-bottom:10px;}
+  .pc{width:auto;}
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div class="splash" id="splash">
+  <svg class="splash__icon" viewBox="0 0 24 24" fill="none">
+    <path d="M12 2.3L21.7 12 12 21.7 2.3 12Z" stroke="currentColor" stroke-width="1.2"/>
+    <path d="M12 7.2C15.2 10 15.2 14 12 16.8 8.8 14 8.8 10 12 7.2Z" fill="currentColor"/>
+  </svg>
+  <p class="splash__txt">جاري تحميل الكتالوج…</p>
+</div>
+
+<!-- HEADER -->
+<header class="hd">
+  <div class="hd__left">
+    <svg class="hd__diamond" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2.3L21.7 12 12 21.7 2.3 12Z" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M12 7.2C15.2 10 15.2 14 12 16.8 8.8 14 8.8 10 12 7.2Z" fill="currentColor"/>
+    </svg>
+    <div class="hd__name">كتالوج المنتجات <small>CATALOGUE PRODUITS</small></div>
+  </div>
+  <div class="hd__pill">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1.6" y="8.6" width="11.2" height="7.4" rx=".5"/><path d="M12.8 11H16.6L20 14.2V16H12.8Z"/><circle cx="6" cy="17.6" r="1.7"/><circle cx="17" cy="17.6" r="1.7"/></svg>
+    توصيل سريع
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero__ey">موزع معتمد — Distributeur Agréé</p>
+  <h1 class="hero__h1">منتجات طازجة يومياً</h1>
+  <p class="hero__fr">Produits frais chaque jour</p>
+  <div class="hero__logos">
+    <a href="#siplait" class="hero__logo-link active">
+      <img src="https://www.falait.com/wp-content/uploads/2023/07/Logo_Siplait-502x208.png" alt="Siplait">
+    </a>
+    <a href="#tartino" class="hero__logo-link">
+      <img src="https://www.falait.com/wp-content/uploads/2023/07/Logo_Tartino_Original-500x500.png" alt="Tartino">
+    </a>
+  </div>
+  <p class="hero__scroll">↓ اسحب للاستكشاف</p>
+</section>
+
+<!-- ══════════ SIPLAIT ══════════ -->
+<section class="sec" id="siplait">
+  <div class="sec__head">
+    <img class="sec__logo" src="https://www.falait.com/wp-content/uploads/2023/07/Logo_Siplait-502x208.png" alt="Siplait">
+    <div class="sec__titles">
+      <p class="sec__name">Siplait</p>
+      <p class="sec__sub">منتجات الحليب · Produits laitiers</p>
+    </div>
+    <span class="sec__count">5 منتجات</span>
+  </div>
+
+  <div class="scroll-row">
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/02/siplait-2.png" alt="Siplait" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">سيبليت</p>
+        <p class="pc__fr">Siplait</p>
+        <div class="pc__tags"><span class="tag">فروماج</span><span class="tag">Fromage</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <span class="pc__badge badge--gold">كويستو</span>
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/01/siplait-cuisto-1.png" alt="Siplait Cuisto" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">سيبليت كويستو</p>
+        <p class="pc__fr">Siplait Cuisto</p>
+        <div class="pc__tags"><span class="tag">للطبخ</span><span class="tag">Cuisine</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/02/Siplait-900gr.png" alt="Siplait Barre 900g" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">سيبليت بار</p>
+        <p class="pc__fr">Siplait Barre</p>
+        <div class="pc__tags"><span class="tag">900g</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <span class="pc__badge badge--blue">كبير</span>
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/02/SIPLAIT-Barre-1800g.png" alt="Siplait Barre 1800g" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">سيبليت بار كبير</p>
+        <p class="pc__fr">Siplait Barre Grande</p>
+        <div class="pc__tags"><span class="tag">1800g</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/04/Siplait-Boudin.png" alt="Siplait Boudin" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">سيبليت بودان</p>
+        <p class="pc__fr">Siplait Boudin</p>
+        <div class="pc__tags"><span class="tag">Rouleau</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ══════════ TARTINO ══════════ -->
+<section class="sec" id="tartino">
+  <div class="sec__head">
+    <img class="sec__logo" src="https://www.falait.com/wp-content/uploads/2023/07/Logo_Tartino_Original-500x500.png" alt="Tartino">
+    <div class="sec__titles">
+      <p class="sec__name">Tartino</p>
+      <p class="sec__sub">جبن قابل للدهن · Fromage à tartiner</p>
+    </div>
+    <span class="sec__count">15 منتجاً</span>
+  </div>
+
+  <div class="scroll-row">
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/01/tartino-1-1.png" alt="Tartino" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">تارتينو أصيل</p>
+        <p class="pc__fr">Tartino Original</p>
+        <div class="pc__tags"><span class="tag">Portions</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <span class="pc__badge badge--gold">كويستو</span>
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/01/tartino-cuisto.png" alt="Tartino Cuisto" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">تارتينو كويستو</p>
+        <p class="pc__fr">Tartino Cuisto</p>
+        <div class="pc__tags"><span class="tag">للطبخ</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/03/mini-barre.png" alt="Tartino Mini Barre" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">تارتينو ميني بار</p>
+        <p class="pc__fr">Tartino Mini Barre</p>
+        <div class="pc__tags"><span class="tag">Mini</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/01/tartino-original-slice.png" alt="Tartino Slice" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">تارتينو سلايس</p>
+        <p class="pc__fr">Tartino Slice</p>
+        <div class="pc__tags"><span class="tag">Tranches</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <span class="pc__badge badge--gold">إكسيلانس</span>
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/01/tartino-excellence.png" alt="Tartino Excellence" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">تارتينو إكسيلانس</p>
+        <p class="pc__fr">Tartino Excellence</p>
+        <div class="pc__tags"><span class="tag">Portions</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/01/excellence-slice.png" alt="Excellence Slice" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">إكسيلانس سلايس</p>
+        <p class="pc__fr">Excellence Slice</p>
+        <div class="pc__tags"><span class="tag">Tranches</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/03/barquette-tartino-excellence.png" alt="Barquette Excellence" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">علبة إكسيلانس</p>
+        <p class="pc__fr">Barquette Excellence</p>
+        <div class="pc__tags"><span class="tag">Barquette</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/01/TARTINO-EXCELLENCE-CARRE-3-Fromages-s.png" alt="Carré 3 Fromages" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">ثلاثة جبنات</p>
+        <p class="pc__fr">Carré 3 Fromages</p>
+        <div class="pc__tags"><span class="tag">Carré</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <span class="pc__badge badge--gold">أعشاب</span>
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/01/tartino-cuisto-a-lail-et-aux-fines-herbes.png" alt="Tartino Ail Herbes" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">كويستو ثوم وأعشاب</p>
+        <p class="pc__fr">Cuisto Ail & Herbes</p>
+        <div class="pc__tags"><span class="tag">Herbes</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/02/Tartino-cuisto-fromage-fume.png" alt="Fromage Fumé" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">كويستو جبن مدخن</p>
+        <p class="pc__fr">Cuisto Fromage Fumé</p>
+        <div class="pc__tags"><span class="tag">Fumé</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <span class="pc__badge badge--red">جديد</span>
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/02/Tartino-cuisto-poulet-roti.png" alt="Poulet Rôti" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">كويستو دجاج مشوي</p>
+        <p class="pc__fr">Cuisto Poulet Rôti</p>
+        <div class="pc__tags"><span class="tag">Poulet</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <span class="pc__badge badge--red">جديد</span>
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/02/Tartino-cuisto-chawarma.png" alt="Chawarma" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">كويستو شاورما</p>
+        <p class="pc__fr">Cuisto Chawarma</p>
+        <div class="pc__tags"><span class="tag">Chawarma</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/01/tartino-cuisto-au-gouda.png" alt="Cuisto Gouda" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">كويستو جودا</p>
+        <p class="pc__fr">Cuisto Gouda</p>
+        <div class="pc__tags"><span class="tag">Gouda</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/01/tartino-edam.png" alt="Tartino Edam Slice" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">سلايس إيدام</p>
+        <p class="pc__fr">Tartino Slice Edam</p>
+        <div class="pc__tags"><span class="tag">Edam</span></div>
+      </div>
+    </div>
+
+    <div class="pc">
+      <span class="pc__badge badge--blue">أطفال</span>
+      <div class="pc__img">
+        <img src="https://www.falait.com/wp-content/uploads/2023/01/tartino-junior-1.png" alt="Tartino Junior" loading="lazy">
+      </div>
+      <div class="pc__body">
+        <p class="pc__ar">تارتينو جونيور</p>
+        <p class="pc__fr">Tartino Junior</p>
+        <div class="pc__tags"><span class="tag">Enfants</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- CTA -->
+<div class="cta">
+  <p class="cta__ar">اطلب الآن أو تواصل معنا</p>
+  <p class="cta__fr">Commandez ou contactez-nous</p>
+  <div class="cta__btns">
+    <a href="tel:+213555123456" class="btn btn--g">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5.2 4C5.9 3.7 7.5 3.7 8 4.4c.5.7.9 1.8 1 2.4.1.5-.1.8-.5 1.1C8 8.3 7.7 8.5 8 9.1c.8 1.5 2.4 3.1 3.9 3.9.6.3.8 0 1.2-.5.3-.4.6-.6 1.1-.5.6.1 1.7.5 2.4 1 .7.5.7 2.1.4 2.8-.4.8-1.3 1.3-2.1 1.2C10.8 16.5 6.5 12.6 6 8.1c-.1-.7-1.5-3.8-.8-4.1Z"/></svg>
+      اتصل بنا
+    </a>
+    <a href="https://wa.me/213555123456" target="_blank" class="btn btn--w">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3.2C7.1 3.2 3.2 7.1 3.2 12c0 1.7.5 3.3 1.3 4.6L3.4 20.6l4.1-1.1C8.8 20.2 10.3 20.6 12 20.6c4.9 0 8.8-3.9 8.8-8.8C20.8 7 16.9 3.2 12 3.2Z"/><path d="M8.8 9c.2-.5.7-.5 1-.3.3.3.8 1.2.8 1.5 0 .3-.1.4-.3.7-.2.2-.4.4-.2.7.8 1.5 2.4 3 3.9 3.7 1 .5 1.3-.5 1.7-.9.2-.2.5-.3 1-.2.6.1 1.7.5 2 .8.3.3.3 1 .1 1.3-.2.4-.7.7-1.1.6-2.1-.3-4.3-2.3-4.6-4.3-.1-.4-.5-1.2-.7-2.4 0-.3-.3-1-.6-1.2Z" fill="currentColor" stroke="none"/></svg>
+      واتساب
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="ft">
+  <div class="ft__logo-row">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 2.3L21.7 12 12 21.7 2.3 12Z" stroke="currentColor" stroke-width="1.2"/><path d="M12 7.2C15.2 10 15.2 14 12 16.8 8.8 14 8.8 10 12 7.2Z" fill="currentColor"/></svg>
+    <span class="ft__brand">موزع معتمد — Siplait &amp; Tartino</span>
+  </div>
+  <p class="ft__tag">Distributeur Agréé · Algérie · FALAIT SPA</p>
+  <div class="ft__pills">
+    <span class="ft__p"><span class="ft__dot"></span>جودة عالية</span>
+    <span class="ft__p"><span class="ft__dot"></span>أسعار تنافسية</span>
+    <span class="ft__p"><span class="ft__dot"></span>توصيل سريع</span>
+  </div>
+</footer>
+
+<button class="st" id="stBtn" aria-label="أعلى الصفحة" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+// Splash hide
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('splash').classList.add('gone'),500));
+
+// Scroll-to-top
+const stBtn=document.getElementById('stBtn');
+window.addEventListener('scroll',()=>stBtn.classList.toggle('on',scrollY>200),{passive:true});
+
+// Hero link active state
+const links=document.querySelectorAll('.hero__logo-link');
+const secs=[document.getElementById('siplait'),document.getElementById('tartino')];
+new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const l=document.querySelector(`.hero__logo-link[href="#${e.target.id}"]`);if(l)l.classList.add('active');}});
+},{threshold:.35}).observe(secs[0]);
+new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const l=document.querySelector(`.hero__logo-link[href="#${e.target.id}"]`);if(l)l.classList.add('active');}});
+},{threshold:.25}).observe(secs[1]);
+</script>
+</body>
+</html>
